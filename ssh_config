@@ -1,0 +1,4 @@
+TCPKeepAlive yes
+ServerAliveInterval 10
+ControlMaster auto
+ControlPersist 600

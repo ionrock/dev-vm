@@ -1,0 +1,34 @@
+---
+- name: Add eric
+  user:
+    name: eric
+    shell: /bin/bash
+    groups: sudo,docker
+    append: yes
+    state: present
+    update_password: always
+    password: $6$RIKYpts.o$kuy9oW5EmQ.8Ft2OVEkM.lA78xUWPEiMniPcCnKevLsyibIggzCaV3Hpfri6Y9ahRE7v75Vp8uLKLWScR8iRY0
+
+- name: Copy bash_profile
+  copy: src=bash_profile dest=/home/eric/.bash_profile
+
+- name: Copy ssh keys
+  synchronize:
+    src: ~/.ssh/
+    dest: /home/eric/.ssh/
+
+- name: Copy a remote ssh/config
+  file: src=ssh_config dest=/home/eric/.ssh/config
+
+- name: Copy homdir files
+  copy: src={{ item }}  dest={{ item }}
+  with_items:
+    - '~/.gitconfig'
+    - '~/.gitignore_global'
+    - '~/.signature'
+
+- name: Copy the authorized keys over
+  command: cp ~/.ssh/authorized_keys /home/eric/.ssh/
+
+- name: Chown eric homedir
+  command: chown -R eric:eric /home/eric

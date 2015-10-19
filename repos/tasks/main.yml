@@ -1,0 +1,74 @@
+- name: Create the Work directory
+  file: path=/home/eric/Work state=directory mode=0755
+
+- name: Create the Projects directory
+  file: path=/home/eric/Projects state=directory mode=0755
+
+- name: Clone work ionrock repos
+  git:
+    repo: git@github.com:ionrock/{{ item }}
+    dest: /home/eric/Projects/{{ item }}
+    accept_hostkey: True
+  with_items:
+    - pytest-el
+    - lodgeit-el
+    - ionblog
+
+
+- name: Clone work ionrock repos
+  git:
+    repo: git@github.com:ionrock/{{ item }}
+    dest: /home/eric/Work/{{ item }}
+    accept_hostkey: True
+  with_items:
+    - xe
+    - withenv
+    - cachecontrol
+    - rdo
+
+- name: Clone rackerlabs repos
+  git:
+    repo: git@github.com:rackerlabs/{{ item }}
+    dest: /home/eric/Work/{{ item }}
+    accept_hostkey: True
+  with_items:
+    - cookbook-designate-agent
+    - cookbook-designate-api
+    - cookbook-designate-apt-client
+    - cookbook-designate-apt-repos
+    - cookbook-designate-base
+    - cookbook-designate-bind
+    - cookbook-designate-central
+    - cookbook-designate-database
+    - cookbook-designate-firewall
+    - cookbook-designate-haproxy
+    - cookbook-designate-jenkins
+    - cookbook-designate-mdns
+    - cookbook-designate-nginx-proxy
+    - cookbook-designate-panama
+    - cookbook-designate-pool-manager
+    - cookbook-designate-queue
+    - cookbook-designate-repose
+    - cookbook-designate-syslog
+    - cookbook-designate-syslog-client
+    - cookbook-repose
+    - designate-ansible
+    - designate-chef
+    - designate-jenkins
+    - designate-panama
+
+- name: Clone openstack projects
+  git:
+    repo: git@github.com:openstack/{{ item }}
+    dest: /home/eric/Work/{{ item }}
+    accept_hostkey: True
+  with_items:
+    - designate
+    - designate-specs
+
+
+- name: Clone designate downstream
+  git:
+    repo: git@github.com:rackerlabs/designate
+    dest: /home/eric/Work/designate-downstream
+    accept_hostkey: True

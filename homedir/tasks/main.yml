@@ -1,0 +1,17 @@
+---
+- name: Clone .emacs.d
+  git:
+    repo: git@bitbucket.org:elarson/emacs.d
+    dest: /home/eric/.emacs.d
+    accept_hostkey: True
+
+- name: Update use-package
+  args:
+    chdir: /home/eric/.emacs.d
+  shell: git submodule init && git submodule update
+
+- name: Set up byobu
+  git:
+    repo: git@github.com:ionrock/byobu
+    dest: /home/eric/.byobu
+    accept_hostkey: True

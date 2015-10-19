@@ -1,0 +1,6 @@
+---
+- name: Setup Dev Machine
+  hosts: all
+  roles:
+    - { role: packages }
+    - { role: user }
