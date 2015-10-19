@@ -1,6 +1,7 @@
 - name: Configure eric
   hosts: all
-  user: eric
+  remote_user: eric
+
   vars:
     ansible_become_password: $6$RIKYpts.o$kuy9oW5EmQ.8Ft2OVEkM.lA78xUWPEiMniPcCnKevLsyibIggzCaV3Hpfri6Y9ahRE7v75Vp8uLKLWScR8iRY0
 
