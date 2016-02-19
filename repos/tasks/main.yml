@@ -1,13 +1,13 @@
 - name: Create the Work directory
-  file: path=/home/eric/Work state=directory mode=0755
+  file: path="{{ homedir }}/Work" state=directory mode=0755
 
 - name: Create the Projects directory
-  file: path=/home/eric/Projects state=directory mode=0755
+  file: path="{{ homedir }}/Projects" state=directory mode=0755
 
 - name: Clone work ionrock repos
   git:
     repo: git@github.com:ionrock/{{ item }}
-    dest: /home/eric/Projects/{{ item }}
+    dest: "{{ homedir }}/Projects/{{ item }}"
     accept_hostkey: True
   with_items:
     - pytest-el
@@ -18,7 +18,7 @@
 - name: Clone work ionrock repos
   git:
     repo: git@github.com:ionrock/{{ item }}
-    dest: /home/eric/Work/{{ item }}
+    dest: "{{ homedir }}/Work/{{ item }}"
     accept_hostkey: True
   with_items:
     - xe
@@ -29,7 +29,7 @@
 - name: Clone rackerlabs repos
   git:
     repo: git@github.com:rackerlabs/{{ item }}
-    dest: /home/eric/Work/{{ item }}
+    dest: "{{ homedir }}/Work/{{ item }}"
     accept_hostkey: True
   with_items:
     - cookbook-designate-agent
@@ -60,7 +60,7 @@
 - name: Clone openstack projects
   git:
     repo: git@github.com:openstack/{{ item }}
-    dest: /home/eric/Work/{{ item }}
+    dest: "{{ homedir }}/Work/{{ item }}"
     accept_hostkey: True
   with_items:
     - designate
@@ -70,5 +70,5 @@
 - name: Clone designate downstream
   git:
     repo: git@github.com:rackerlabs/designate
-    dest: /home/eric/Work/designate-downstream
+    dest: "{{ homedir }}/Work/designate-downstream"
     accept_hostkey: True

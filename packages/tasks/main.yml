@@ -17,7 +17,8 @@
   with_items:
     - 'python-pip'
     - 'python-virtualenv'
-    - 'git'
+    - 'python-mysqldb'
+    - 'python-dev'
     - 'rabbitmq-server'
     - 'mysql-server'
     - 'bind9'

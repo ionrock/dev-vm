@@ -8,12 +8,12 @@
 Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "dummy"
+  config.vm.box = "ubuntu/trusty64"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.network :public_network
+  config.vm.network "private_network", ip: "192.168.33.10"
+  # config.vm.network :public_network
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -25,7 +25,8 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder ".", "/vagrant", :disabled => true
+  # config.vm.synced_folder "~/Work", "/vagrant", type: "nfs"
+  config.vm.synced_folder "~/Work/designate", "/vagrant/designate"
 
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -40,7 +41,7 @@ Vagrant.configure(2) do |config|
   #   cd mu && autoreconf -i && ./configure && make && sudo make install
 
   # SHELL
-  config.ssh.private_key_path = '~/.ssh/id_rsa'
+  # config.ssh.private_key_path = '~/.ssh/id_rsa'
 
   config.vm.provider :rackspace do |rs|
     rs.server_name      = 'dev-vm-elarson'
@@ -53,6 +54,6 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yml"
+    ansible.playbook = "designate-playbook.yml"
   end
 end

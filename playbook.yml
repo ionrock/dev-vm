@@ -3,4 +3,10 @@
   hosts: all
   roles:
     - { role: packages }
-    - { role: user }
+    # - { role: user, become: true }
+
+- name: Setup Designate
+  hosts: all
+  roles:
+    - { role: designate }
+  tag: designate
