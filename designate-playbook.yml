@@ -1,0 +1,11 @@
+---
+- name: Setup Dev Machine
+  hosts: all
+  roles:
+    - { role: packages }
+
+- name: Setup Designate
+  hosts: all
+  become: true
+  roles:
+    - { role: designate }

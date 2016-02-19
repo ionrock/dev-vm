@@ -1,0 +1,37 @@
+- name: Upgrade pip
+  pip: name=pip extra_args='--upgrade' state=latest
+
+- name: Copy extra requirements.txt
+  template: src=extra_requirements.txt.j2 dest=/tmp/extra_requirements.txt
+
+- name: Install extra packages
+  pip: requirements=/tmp/extra_requirements.txt
+
+- name: Add designate rabbitmq user
+  ignore_errors: true
+  command: rabbitmqctl add_user designate designate
+
+- name: Give designate access to / on the rabbit server
+  ignore_errors: true
+  command: rabbitmqctl set_permissions -p "/" designate ".*" ".*" ".*"
+
+- name: Copy default sql
+  template: src=default_tables.sql.j2 dest=/tmp/default_tables.sql
+
+- name: Add designate mysql table
+  mysql_db: name=designate state=present
+
+- name: Add designate_pool_manager mysql table
+  mysql_db: name=designate_pool_manager state=present
+
+- name: Update bind config
+  template: src=named.conf.options.j2 dest=/etc/bind/named.conf.options
+
+- name: Touch apparmor config
+  file: path=/etc/apparmor.d/disable/usr.sbin.named state=touch
+
+- name: Reload apparmor
+  service: name=apparmor state=reloaded
+
+- name: Restart bind
+  service: name=bind9 state=restarted
