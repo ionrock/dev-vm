@@ -20,6 +20,8 @@
     - 'python-mysqldb'
     - 'python-dev'
     - 'rabbitmq-server'
+    - 'zookeeperd'
+    - 'memcached'
     - 'mysql-server'
     - 'bind9'
     - 'libtool'
